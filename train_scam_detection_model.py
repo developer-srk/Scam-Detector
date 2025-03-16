@@ -13,9 +13,10 @@ data = pd.DataFrame({
         "Hello, how are you?", 
         "Important message regarding your bank account",
         "Get rich quick with this simple trick!", 
-        "Reminder: Your bank statement is ready."
+        "Reminder: Your bank statement is ready",
+        "Spend $15 per day and get one lakh in a month."
     ],
-    'label': [1, 1, 0, 1, 1, 0]  # 1 = Scam, 0 = Safe (fixed label for bank message)
+    'label': [1, 1, 0, 1, 1, 0, 1]  # 1 = Scam, 0 = Safe (fixed label for bank message)
 })
 
 # Text preprocessing and feature extraction
