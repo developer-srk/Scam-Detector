@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Scam Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.jdmagicbox.com/comp/nagpur/u8/0712px712.x712.140711164015.a3u8/catalogue/excellon-software-pvt-ltd-parsodi-nagpur-computer-software-developers-0h4ei5b4a7.jpg') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            color: #ECF0F1; 
+        }
+
+        /* Overlay to improve readability */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            z-index: -1;
+        }
+
+        /* Header Styling */
+        header {
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            font-size: 22px;
+            font-weight: bold;
+          
+        }
+
+        /* Main Content */
+        main {
+            padding: 24px;
+            width: 95%;
+            max-width: 900px;
+            background: rgba(27, 27, 47, 0.9);
+            box-shadow: 0 4px 15px rgba(255, 88, 51, 0.82);
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }    
+
+        main:hover {
+            transform: scale(1.05);
+        }
+
+        /* Textarea */
+        textarea {
+            width: 100%;
+            padding: 1px;
+            border: 2px solid #f30000;
+            border-radius: 8px;
+            font-size: 18px;
+            resize: none;
+            min-height: 150px;
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* Button Styling */
+        button {
+            background: #d11b1bbb;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(199, 0, 57, 0.6);
+        }
+
+        button:hover {
+            background: #ff0000;
+            box-shadow: 0 4px 15px rgba(144, 12, 63, 0.9);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3px;
+            background: rgba(3, 3, 60, 0.9);
+            color: white;
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Scam Detection</h1>
+        <p>Check if your email or message is a scam!</p>
+    </header>
+
+    <main>
+        <textarea id="inputText" placeholder="Paste text here (email, message, etc.)" rows="5"></textarea>
+        <p><button onclick="checkForScam()">Check for Scam</button></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Scam Detection AI</p>
+    </footer>
+
+    <script>
+        async function checkForScam() {
+            const inputText = document.getElementById('inputText').value.trim();
+
+            if (!inputText) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'Please enter some text to check!'
+                });
+                return;
+            }
+
+            try {
+                const response = await fetch('/check-scam', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: inputText })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: data.isScam ? 'error' : 'success',
+                        title: data.isScam ? 'Scam Detected!' : 'Safe Message',
+                        text: data.message
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong. Please try again later.'
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Could not connect to the server.'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
