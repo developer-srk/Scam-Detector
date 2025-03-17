@@ -1,4 +1,4 @@
-# Scam Detection API
+# Scam Detection AI
 
 ## Overview
 This project is a **Flask-based API** for detecting scam messages using a **Naïve Bayes model** trained on text data. It provides an endpoint to analyze text input and determine whether it is a potential scam.
